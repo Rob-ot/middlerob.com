@@ -1,0 +1,42 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    title= 'Rob'
+    link(rel='stylesheet', href='/css/main.css')
+  body
+    header
+      h1(class='title')
+        a(href='/') Rob Middleton
+      h2
+        a(href='https://twitter.com/Rob__ot', class='socialLink') Twitter
+        = ' '
+        a(href='https://github.com/Rob-ot', class='socialLink') GitHub
+        = ' '
+        a(href='mailto:middlerob@gmail.com', class='socialLink') E-Mail
+
+    block content
+
+    h3 All Tags
+    section.tagCloud
+      - var tagUsageCounts = tagList.map(function (tag) { return postsWithTag(tag).length })
+      - var maxTagUsage = Math.max.apply(Math, tagUsageCounts)
+      - var minTagUsage = Math.min.apply(Math, tagUsageCounts)
+      - each tag in tagList
+        - var tagUsagePercent = (postsWithTag(tag).length - minTagUsage) / (maxTagUsage - minTagUsage)
+        = ' '
+        a.tag(href='#{tagUrl(tag)}', style='font-size: #{(16 * tagUsagePercent) + 14}px')  #{tag}
+
+    footer
+      span Copyright &copy; 2013 Rob Middleton
+      = ' '
+      a(href='https://github.com/Rob-ot/middlerob.com') Fork me on Github
+      = ' '
+      a(href='http://www.theleagueofmoveabletype.com/ostrich-sans') Font
+      = ' '
+      a(href='http://www.colourlovers.com/palette/444487/Curiosity_Killed') Colors
+      = ' '
+      = 'Built using '
+      a(href='http://nodejs.org/') Node.js
+      = ' and '
+      a(href='http://jsantell.github.com/poet/') Poet
