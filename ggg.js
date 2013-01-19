@@ -1,5 +1,5 @@
 module.exports = {
-  start: "node app.js",
+  start: "./node_modules/.bin/coffee app.coffee",
   install: "npm install",
 
   servers: {
