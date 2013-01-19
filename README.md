@@ -1,4 +1,4 @@
 middlerob.com
 =============
 
-[http://middlerob.com](Surf to the live web website)
+[Surf to the live web website](http://middlerob.com)
