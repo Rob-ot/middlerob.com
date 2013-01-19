@@ -31,4 +31,4 @@ app.use app.router
 app.get '/', ( req, res ) ->
   res.render 'index'
 
-app.listen 80
+app.listen process.env.BLOG_PORT || 80
