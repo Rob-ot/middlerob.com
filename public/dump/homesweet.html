@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    html, body {
+      background: #181818;
+    }
+
+    .boxmodel {
+      background: #181818;
+      background: -moz-radial-gradient(center, ellipse cover, #414141 0%, #181818 100%);
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#414141), color-stop(100%,#181818));
+      background: -webkit-radial-gradient(center, ellipse cover, #414141 0%,#181818 100%);
+      background: -o-radial-gradient(center, ellipse cover, #414141 0%,#181818 100%);
+      background: -ms-radial-gradient(center, ellipse cover, #414141 0%,#181818 100%);
+      background: radial-gradient(ellipse at center, #414141 0%,#181818 100%);
+      -moz-box-sizing: border-box;
+      height: 500px;
+      padding: 110px;
+      perspective: 600px;
+      perspective-origin: 250px 250px;
+      width: 500px;
+    }
+
+    .right {
+      transform-origin: top right;
+    }
+    .left {
+      transform-origin: center left;
+    }
+    .top {
+      transform-origin: top center;
+    }
+    .bottom {
+      transform-origin: bottom center;
+    }
+
+    .box1 {
+      animation: spin 4s infinite linear;
+      position: relative;
+      transform-style: preserve-3d;
+      width: 280px;
+    }
+
+    .box1 .wall {
+      border: 5px dotted #AEFAF7;
+      height: 270px;
+      position: absolute;
+      width: 270px;
+    }
+
+    .box1 .back {
+      transform: translateZ(-140px) rotateY(180deg);
+    }
+    .box1 .right {
+      transform: rotateY(-270deg) translateX(140px);
+    }
+    .box1 .left {
+      transform: rotateY(270deg) translateX(-140px);
+    }
+    .box1 .top {
+      transform: rotateX(-90deg) translateY(-140px);
+    }
+    .box1 .bottom {
+      transform: rotateX(90deg) translateY(140px);
+    }
+    .box1 .front {
+      transform: translateZ(140px);
+    }
+
+
+    .box2 .wall {
+      border: 5px solid #C7C7C7;
+      height: 220px;
+      position: absolute;
+      width: 220px;
+    }
+
+    .box2 .back {
+      transform: translate3d(25px, 25px, -115px) rotateY(180deg);
+    }
+    .box2 .right {
+      transform: rotateY(-270deg) translate3d(115px, 25px, 25px);
+    }
+    .box2 .left {
+      transform: rotateY(270deg) translate3d(-115px, 25px, -25px);
+    }
+    .box2 .top {
+      transform: rotateX(-90deg) translate3d(25px, -115px, 25px);
+    }
+    .box2 .bottom {
+      transform: rotateX(90deg) translate3d(25px, 115px, -25px);
+    }
+    .box2 .front {
+      transform: translate3d(25px, 25px, 115px);
+    }
+
+
+    .box3 .wall {
+      border: 4px solid #9A9A9A;
+      height: 172px;
+      position: absolute;
+      width: 172px;
+    }
+
+    .box3 .back {
+      transform: translate3d(50px, 50px, -90px) rotateY(180deg);
+    }
+    .box3 .right {
+      transform: rotateY(-270deg) translate3d(90px, 50px, 50px);
+    }
+    .box3 .left {
+      transform: rotateY(270deg) translate3d(-90px, 50px, -50px);
+    }
+    .box3 .top {
+      transform: rotateX(-90deg) translate3d(50px, -90px, 50px);
+    }
+    .box3 .bottom {
+      transform: rotateX(90deg) translate3d(50px, 90px, -50px);
+    }
+    .box3 .front {
+      transform: translate3d(50px, 50px, 90px);
+    }
+
+
+    .box4 .wall {
+      background: url("data:image/gif;base64,R0lGODlhEAAQAOcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///yH5BAEKAP8ALAAAAAAQABAAAAg1AOsIrPOvoMGDBQcSRMhQIcOGAx9K/OdwYsKIFilitFgxo8GOE0FKFPmQJMeNIVGOVFlyYEAAOw==") repeat;
+      border: 0;
+      height: 134px;
+      position: absolute;
+      width: 134px;
+    }
+
+    .box4 .back {
+      transform: translate3d(73px, 73px, -67px) rotateY(180deg);
+    }
+    .box4 .right {
+      transform: rotateY(-270deg) translate3d(67px, 73px, 73px);
+    }
+    .box4 .left {
+      transform: rotateY(270deg) translate3d(-67px, 73px, -73px);
+    }
+    .box4 .top {
+      transform: rotateX(-90deg) translate3d(73px, -67px, 73px);
+    }
+    .box4 .bottom {
+      transform: rotateX(90deg) translate3d(73px, 67px, -73px);
+    }
+    .box4 .front {
+      transform: translate3d(73px, 73px, 67px);
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(-360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="boxmodel">
+    <div class="box1">
+      <div class="wall front"></div>
+      <div class="wall back"></div>
+      <div class="wall top"></div>
+      <div class="wall bottom"></div>
+      <div class="wall left"></div>
+      <div class="wall right"></div>
+
+      <div class="box2">
+        <div class="wall front"></div>
+        <div class="wall back"></div>
+        <div class="wall top"></div>
+        <div class="wall bottom"></div>
+        <div class="wall left"></div>
+        <div class="wall right"></div>
+
+        <div class="box3">
+          <div class="wall front"></div>
+          <div class="wall back"></div>
+          <div class="wall top"></div>
+          <div class="wall bottom"></div>
+          <div class="wall left"></div>
+          <div class="wall right"></div>
+
+          <div class="box4">
+            <div class="wall front"></div>
+            <div class="wall back"></div>
+            <div class="wall top"></div>
+            <div class="wall bottom"></div>
+            <div class="wall left"></div>
+            <div class="wall right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  ;(function() {
+    var boxmodel = document.querySelector(".boxmodel")
+    boxmodel.addEventListener("mousemove", function(e) {
+      var y = Math.abs(500 - e.clientY - boxmodel.offsetTop)
+      var x = e.clientX - boxmodel.offsetLeft
+      boxmodel.style.perspectiveOrigin = "" + x + "px " + y + "px"
+    }, false)
+
+    boxmodel.addEventListener("mouseleave", function(e) {
+      boxmodel.style.transition = "perspective-origin 1s ease"
+      boxmodel.style.perspectiveOrigin = ""
+
+      setTimeout(function() {
+        boxmodel.style.transition = ""
+      }, 1000)
+    }, false)
+  }())
+  </script>
+</body>
+</html>
