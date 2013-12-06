@@ -1,3 +1,6 @@
 [submodule "public/dump/BitE-JS"]
 	path = public/dump/BitE-JS
 	url = https://github.com/Rob-ot/BitE-JS.git
+[submodule "public/dump/Koch"]
+	path = public/dump/Koch
+	url = https://github.com/Rob-ot/Koch.git
