@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Game</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta name="generator" content="Geany 0.16" />
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    /*
+    This is a 3d array holding the pieces.  The outer array contains the 7 kinds of pieces.
+    Each piece has 4 blocks in it, and each block has a X and Y coord.
+    */
+    var pieceIndex = new Array(
+      // I
+      new Array(new Array( 0, -1 ), new Array( 0, 0 ), new Array( 0, 1 ), new Array( 0, 2 )),
+      // s
+      new Array(new Array( -1, 1 ), new Array( 0, 1 ), new Array( 0, 0 ), new Array( 1, 0 )),
+      // z
+      new Array(new Array( -1, 0 ), new Array( 0, 0 ), new Array( 0, 1 ), new Array( 1, 1 )),
+      // o
+      new Array(new Array( 0, 0 ), new Array( 0, 1 ), new Array( 1, 0 ), new Array( 1, 1 )),
+      // L
+      new Array(new Array( 0, -1 ), new Array( 0, 0 ), new Array( 0, 1 ), new Array( 1, 1 )),
+      // _|
+      new Array(new Array( 0, -1 ), new Array( 0, 0 ), new Array( 0, 1 ), new Array( -1, 1 )),
+      // T
+      new Array(new Array( -1, 0 ), new Array( 0, 0 ), new Array( 0, -1 ), new Array( 1, 0 ))
+    );
+
+    var pieceColorIndex = new Array( "#FF0000", "#FF8000", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#FF00FF" );
+
+    document.onkeydown = onKeyPress;
+
+    var KEYSENABLED = true;
+    var PAUSE = false;
+    var SCORE = 0;
+
+    var PIECEX = 0;
+    var PIECEY = 0;
+    var PIECEID = 0;
+    var NEXTPIECEID = getRandomNumber(0,6);
+    var NEXTPIECEANG = 0;
+    var PIECECOLOR = "";
+    var PIECEANG = 0; // number > degrees (cw) 0 > 0, 1 > 90, 2 > 180, 3 > 270
+
+    function start() {
+      SCORE = 0;
+      addScore(0);
+      KEYSENABLED = true;
+      PAUSE = false;
+      document.getElementById("start").style.visibility = 'hidden';
+      run("d");
+    }
+
+    function run( action ) {
+      if( ! PAUSE ) {
+        if( action == "r" ) {
+          if( movePiece( 'd', PIECECOLOR)) {
+            KEYSENABLED = true;
+            setTimeout('run("r")', 1000);
+          }
+          else {
+            KEYSENABLED = false;
+            clearFullRows();
+            setTimeout('run("d")', 300);
+
+          }
+        }
+        else if( action == "d" ) {
+          if( spawnPiece()) {
+            setTimeout('run("r")', 0);
+          }
+        }
+      }
+    }
+
+    function onKeyPress( e ) {
+      if( KEYSENABLED ) {
+        var keynum;
+
+        if(!e){ //for IE
+          e = window.event;
+        }
+
+        keynum = e.keyCode;
+
+        if( keynum == null ) {
+          return;
+        }
+
+        //alert( keynum );
+
+        switch( keynum ) {
+          // left
+          case 37:
+            movePiece( 'l', PIECECOLOR);
+            break;
+          // right
+          case 39:
+            movePiece( 'r', PIECECOLOR);
+            break;
+          // up
+          case 38:
+            rotate('r', PIECECOLOR);
+            break;
+          // down
+          case 40:
+            movePiece( 'd', PIECECOLOR);
+            break;
+          // space
+          case 32:
+            dropPiece();
+            break;
+          // z
+          case 90:
+            rotate('l', PIECECOLOR);
+            break;
+          // x
+          case 88:
+            rotate('r', PIECECOLOR);
+            break;
+          // p
+          case 80:
+            if( PAUSE ) {
+              PAUSE = false;
+              run("r");
+            }
+            else {
+              PAUSE = true;
+            }
+            break;
+        }
+      }
+    }
+
+    function gameOver() {
+      KEYSENABLED = false;
+      PAUSE = true;
+      alert("Game Over\nYou scored " + SCORE);
+      clearBoard();
+      clearNewArea();
+      document.getElementById("start").style.visibility = 'visible';
+    }
+
+    function spawnPiece() {
+      PIECEX = 5;
+      PIECEY = 2;
+      PIECEID = NEXTPIECEID;
+      NEXTPIECEID = getRandomNumber(0,6);
+      PIECECOLOR = pieceColorIndex[PIECEID];
+      PIECEANG = NEXTPIECEANG;
+      NEXTPIECEANG = getRandomNumber(0,3);
+
+      updateNext();
+
+      if( ! checkCollision( PIECEID, PIECEX, PIECEY, PIECEANG )) {
+        drawPiece( PIECEID, PIECEX, PIECEY, PIECECOLOR, PIECEANG );
+      }
+      else {
+        gameOver();
+        return false;
+      }
+      return true;
+    }
+
+    function getRandomNumber( low, high ) {
+      return Math.floor(Math.random()*(1+high - low)) + low;
+    }
+
+    function setCellColor( cellx, celly, color ) {
+      var cellId = "c" + celly + "x" + cellx;
+      document.getElementById(cellId).style.backgroundColor = color;
+      //alert(cellx + " " + celly + " " + color);
+    }
+
+    function dropPiece() {
+      KEYSENABLED = false;
+      while( movePiece( 'd', PIECECOLOR) ) {
+      }
+    }
+
+    function getCellColor( cellx, celly ) {
+      var cellId = "c" + celly + "x" + cellx;
+      var color = document.getElementById(cellId).style.backgroundColor;
+
+      if( color[0] != '#' ) {
+        //http://www.tek-tips.com/viewthread.cfm?qid=1436140&page=11
+        str = color.replace(/rgb\(|\)/g, "").split(",");
+        str[0] = parseInt(str[0], 10).toString(16).toLowerCase();
+        str[1] = parseInt(str[1], 10).toString(16).toLowerCase();
+        str[2] = parseInt(str[2], 10).toString(16).toLowerCase();
+        str[0] = (str[0].length == 1) ? '0' + str[0] : str[0];
+        str[1] = (str[1].length == 1) ? '0' + str[1] : str[1];
+        str[2] = (str[2].length == 1) ? '0' + str[2] : str[2];
+        color = '#' + str.join("");
+      }
+      return color;
+    }
+
+    function rotate( direction, color ) {
+      if( ! PAUSE ) {
+        newAngle = PIECEANG;
+
+        if( direction == 'l' ) {
+          newAngle--;
+          if( newAngle == -1 ) {
+            newAngle = 3;
+          }
+        }
+        else if( direction == 'r' ) {
+          newAngle++;
+          if( newAngle == 4 ) {
+            newAngle = 0;
+          }
+        }
+
+        drawPiece( PIECEID, PIECEX, PIECEY, "#FFFFFF", PIECEANG );
+
+        if( ! checkCollision( PIECEID, PIECEX, PIECEY, newAngle )) {
+          PIECEANG = newAngle;
+        }
+
+        drawPiece( PIECEID, PIECEX, PIECEY, color, PIECEANG );
+      }
+    }
+
+    function movePiece( direction, color ) {
+      if( ! PAUSE ) {
+        var endX = PIECEX;
+        var endY = PIECEY;
+        var collision = false;
+
+        if( direction == 'u' ) {
+          endY -= 1;
+        }
+        else if( direction == 'd' ) {
+          endY += 1;
+        }
+        else if( direction == 'l' ) {
+          endX -= 1;
+        }
+        else if( direction == 'r' ) {
+          endX += 1;
+        }
+
+        drawPiece( PIECEID, PIECEX, PIECEY, "#FFFFFF", PIECEANG );
+
+        if( ! checkCollision( PIECEID, endX, endY, PIECEANG )) {
+          PIECEX = endX;
+          PIECEY = endY;
+        }
+        else {
+          collision = true;
+        }
+
+        drawPiece( PIECEID, PIECEX, PIECEY, color, PIECEANG );
+        return ! collision;
+      }
+    }
+
+    function checkCollision( piece, piecePosX, piecePosY, angle ) {
+
+      var newPiece = pieceIndex[piece].clone();
+
+      for( var i = 0; i < 4; i++ ) {
+        var coords = getRotatedVals( newPiece[i][0], newPiece[i][1], angle );
+
+        var x = coords[0] + piecePosX;
+        var y = coords[1] + piecePosY;
+
+        if( x < 0 || x > 9 ) {
+          return true;
+        }
+        if( y < 0 || y > 17 ) {
+          return true;
+        }
+
+        if( getCellColor( x, y ) != "#ffffff" ) {
+          return true;
+        }
+      }
+    }
+
+    function drawPiece( piece, piecePosX, piecePosY, color, angle ) {
+      var newPiece = pieceIndex[piece].clone();
+
+      for( var i = 0; i < 4; i++ ) {
+        var coords = getRotatedVals( newPiece[i][0], newPiece[i][1], angle );
+
+        var x = coords[0] + piecePosX;
+        var y = coords[1] + piecePosY;
+
+        setCellColor( x, y, color );
+      }
+    }
+
+    function getRotatedVals( x, y, angle ) {
+      var newx;
+      var newy;
+
+      switch( angle ) {
+        case 0:
+          newx = x;
+          newy = y;
+          break;
+        case 1:
+          newy = x;
+          newx = y * -1;
+          break;
+        case 2:
+          newy = y * -1;
+          newx = x * -1;
+          break;
+        case 3:
+          newy = x * -1;
+          newx = y;
+          break;
+      }
+
+      return new Array(newx, newy);
+    }
+
+    function clearBoard() {
+      for( var i = 17; i >= 0; i-- ) {
+        for( var j = 0; j < 10; j++ ) {
+          setCellColor( j, i, "#ffffff");
+        }
+      }
+    }
+
+    function clearFullRows() {
+      var numCleared = 0;
+
+      for( var i = 17; i >= 0; i-- ) {
+        var foundEmpty = false;
+
+        for( var j = 0; j < 10; j++ ) {
+          if( getCellColor( j, i ) == "#ffffff" ) {
+            foundEmpty = true;
+          }
+
+        }
+
+        if( foundEmpty == false ) {
+          for( var ii = i; ii >= 0; ii-- ) {
+            for( var jj = 0; jj < 10; jj++ ) {
+              if( ii != 0 ) {
+                setCellColor( jj, ii, getCellColor(jj,ii-1));
+              }
+            }
+          }
+          numCleared++;
+          i++;
+        }
+      }
+
+      addScore( 10 * numCleared * numCleared);
+    }
+
+    function addScore( pointsToAdd ) {
+      SCORE += pointsToAdd;
+      document.getElementById('score').innerHTML = "Score: " + SCORE;
+    }
+
+    function updateNext() {
+      var newPiece = pieceIndex[NEXTPIECEID].clone();
+
+      clearNewArea();
+
+      for( var i = 0; i < 4; i++ ) {
+        var coords = getRotatedVals( newPiece[i][0], newPiece[i][1], NEXTPIECEANG );
+
+        newPiece[i][0] = coords[0];
+        newPiece[i][1] = coords[1];
+      }
+
+      for( var i = 0; i < 4; i++ ) {
+        if( newPiece[i][0] < 0 ) {
+          for( var j = 0; j < 4; j++ ) {
+            newPiece[j][0]++;
+          }
+        }
+        if( newPiece[i][1] < 0 ) {
+          for( var j = 0; j < 4; j++ ) {
+            newPiece[j][1]++;
+          }
+        }
+      }
+
+      for( var i = 0; i < 4; i++ ) {
+        setNextCellColor( newPiece[i][0], newPiece[i][1], pieceColorIndex[NEXTPIECEID] );
+      }
+    }
+
+    function clearNewArea() {
+      for( var i = 0; i < 4; i++ ) {
+        for( var j = 0; j < 4; j++ ) {
+          setNextCellColor( j, i, "" );
+        }
+      }
+    }
+
+    function setNextCellColor( cellx, celly, color ) {
+      var cellId = "n" + celly + "x" + cellx;
+      document.getElementById(cellId).style.backgroundColor = color;
+    }
+
+    //http://my.opera.com/GreyWyvern/blog/show.dml/1725165
+    Object.prototype.clone = function() {
+      var newObj = (this instanceof Array) ? [] : {};
+      for (i in this) {
+      if (i == 'clone') continue;
+      if (this[i] && typeof this[i] == "object") {
+        newObj[i] = this[i].clone();
+      } else newObj[i] = this[i]
+      } return newObj;
+    };
+  /* ]]> */
+  </script>
+</head>
+<body onkeypress="onkeypress()">
+  <div style="background-color: #969696; margin-left: auto; margin-right: auto; width: 500px; height: 500px;">
+    <table border='1' style="border-spacing:0; float: left; padding:10px; height:500px" width='300px' >
+    <tr><td id='c0x0' style='background-color:#ffffff;'></td><td id='c0x1' style='background-color:#ffffff;'></td><td id='c0x2' style='background-color:#ffffff;'></td><td id='c0x3' style='background-color:#ffffff;'></td><td id='c0x4' style='background-color:#ffffff;'></td><td id='c0x5' style='background-color:#ffffff;'></td><td id='c0x6' style='background-color:#ffffff;'></td><td id='c0x7' style='background-color:#ffffff;'></td><td id='c0x8' style='background-color:#ffffff;'></td><td id='c0x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c1x0' style='background-color:#ffffff;'></td><td id='c1x1' style='background-color:#ffffff;'></td><td id='c1x2' style='background-color:#ffffff;'></td><td id='c1x3' style='background-color:#ffffff;'></td><td id='c1x4' style='background-color:#ffffff;'></td><td id='c1x5' style='background-color:#ffffff;'></td><td id='c1x6' style='background-color:#ffffff;'></td><td id='c1x7' style='background-color:#ffffff;'></td><td id='c1x8' style='background-color:#ffffff;'></td><td id='c1x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c2x0' style='background-color:#ffffff;'></td><td id='c2x1' style='background-color:#ffffff;'></td><td id='c2x2' style='background-color:#ffffff;'></td><td id='c2x3' style='background-color:#ffffff;'></td><td id='c2x4' style='background-color:#ffffff;'></td><td id='c2x5' style='background-color:#ffffff;'></td><td id='c2x6' style='background-color:#ffffff;'></td><td id='c2x7' style='background-color:#ffffff;'></td><td id='c2x8' style='background-color:#ffffff;'></td><td id='c2x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c3x0' style='background-color:#ffffff;'></td><td id='c3x1' style='background-color:#ffffff;'></td><td id='c3x2' style='background-color:#ffffff;'></td><td id='c3x3' style='background-color:#ffffff;'></td><td id='c3x4' style='background-color:#ffffff;'></td><td id='c3x5' style='background-color:#ffffff;'></td><td id='c3x6' style='background-color:#ffffff;'></td><td id='c3x7' style='background-color:#ffffff;'></td><td id='c3x8' style='background-color:#ffffff;'></td><td id='c3x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c4x0' style='background-color:#ffffff;'></td><td id='c4x1' style='background-color:#ffffff;'></td><td id='c4x2' style='background-color:#ffffff;'></td><td id='c4x3' style='background-color:#ffffff;'></td><td id='c4x4' style='background-color:#ffffff;'></td><td id='c4x5' style='background-color:#ffffff;'></td><td id='c4x6' style='background-color:#ffffff;'></td><td id='c4x7' style='background-color:#ffffff;'></td><td id='c4x8' style='background-color:#ffffff;'></td><td id='c4x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c5x0' style='background-color:#ffffff;'></td><td id='c5x1' style='background-color:#ffffff;'></td><td id='c5x2' style='background-color:#ffffff;'></td><td id='c5x3' style='background-color:#ffffff;'></td><td id='c5x4' style='background-color:#ffffff;'></td><td id='c5x5' style='background-color:#ffffff;'></td><td id='c5x6' style='background-color:#ffffff;'></td><td id='c5x7' style='background-color:#ffffff;'></td><td id='c5x8' style='background-color:#ffffff;'></td><td id='c5x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c6x0' style='background-color:#ffffff;'></td><td id='c6x1' style='background-color:#ffffff;'></td><td id='c6x2' style='background-color:#ffffff;'></td><td id='c6x3' style='background-color:#ffffff;'></td><td id='c6x4' style='background-color:#ffffff;'></td><td id='c6x5' style='background-color:#ffffff;'></td><td id='c6x6' style='background-color:#ffffff;'></td><td id='c6x7' style='background-color:#ffffff;'></td><td id='c6x8' style='background-color:#ffffff;'></td><td id='c6x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c7x0' style='background-color:#ffffff;'></td><td id='c7x1' style='background-color:#ffffff;'></td><td id='c7x2' style='background-color:#ffffff;'></td><td id='c7x3' style='background-color:#ffffff;'></td><td id='c7x4' style='background-color:#ffffff;'></td><td id='c7x5' style='background-color:#ffffff;'></td><td id='c7x6' style='background-color:#ffffff;'></td><td id='c7x7' style='background-color:#ffffff;'></td><td id='c7x8' style='background-color:#ffffff;'></td><td id='c7x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c8x0' style='background-color:#ffffff;'></td><td id='c8x1' style='background-color:#ffffff;'></td><td id='c8x2' style='background-color:#ffffff;'></td><td id='c8x3' style='background-color:#ffffff;'></td><td id='c8x4' style='background-color:#ffffff;'></td><td id='c8x5' style='background-color:#ffffff;'></td><td id='c8x6' style='background-color:#ffffff;'></td><td id='c8x7' style='background-color:#ffffff;'></td><td id='c8x8' style='background-color:#ffffff;'></td><td id='c8x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c9x0' style='background-color:#ffffff;'></td><td id='c9x1' style='background-color:#ffffff;'></td><td id='c9x2' style='background-color:#ffffff;'></td><td id='c9x3' style='background-color:#ffffff;'></td><td id='c9x4' style='background-color:#ffffff;'></td><td id='c9x5' style='background-color:#ffffff;'></td><td id='c9x6' style='background-color:#ffffff;'></td><td id='c9x7' style='background-color:#ffffff;'></td><td id='c9x8' style='background-color:#ffffff;'></td><td id='c9x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c10x0' style='background-color:#ffffff;'></td><td id='c10x1' style='background-color:#ffffff;'></td><td id='c10x2' style='background-color:#ffffff;'></td><td id='c10x3' style='background-color:#ffffff;'></td><td id='c10x4' style='background-color:#ffffff;'></td><td id='c10x5' style='background-color:#ffffff;'></td><td id='c10x6' style='background-color:#ffffff;'></td><td id='c10x7' style='background-color:#ffffff;'></td><td id='c10x8' style='background-color:#ffffff;'></td><td id='c10x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c11x0' style='background-color:#ffffff;'></td><td id='c11x1' style='background-color:#ffffff;'></td><td id='c11x2' style='background-color:#ffffff;'></td><td id='c11x3' style='background-color:#ffffff;'></td><td id='c11x4' style='background-color:#ffffff;'></td><td id='c11x5' style='background-color:#ffffff;'></td><td id='c11x6' style='background-color:#ffffff;'></td><td id='c11x7' style='background-color:#ffffff;'></td><td id='c11x8' style='background-color:#ffffff;'></td><td id='c11x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c12x0' style='background-color:#ffffff;'></td><td id='c12x1' style='background-color:#ffffff;'></td><td id='c12x2' style='background-color:#ffffff;'></td><td id='c12x3' style='background-color:#ffffff;'></td><td id='c12x4' style='background-color:#ffffff;'></td><td id='c12x5' style='background-color:#ffffff;'></td><td id='c12x6' style='background-color:#ffffff;'></td><td id='c12x7' style='background-color:#ffffff;'></td><td id='c12x8' style='background-color:#ffffff;'></td><td id='c12x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c13x0' style='background-color:#ffffff;'></td><td id='c13x1' style='background-color:#ffffff;'></td><td id='c13x2' style='background-color:#ffffff;'></td><td id='c13x3' style='background-color:#ffffff;'></td><td id='c13x4' style='background-color:#ffffff;'></td><td id='c13x5' style='background-color:#ffffff;'></td><td id='c13x6' style='background-color:#ffffff;'></td><td id='c13x7' style='background-color:#ffffff;'></td><td id='c13x8' style='background-color:#ffffff;'></td><td id='c13x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c14x0' style='background-color:#ffffff;'></td><td id='c14x1' style='background-color:#ffffff;'></td><td id='c14x2' style='background-color:#ffffff;'></td><td id='c14x3' style='background-color:#ffffff;'></td><td id='c14x4' style='background-color:#ffffff;'></td><td id='c14x5' style='background-color:#ffffff;'></td><td id='c14x6' style='background-color:#ffffff;'></td><td id='c14x7' style='background-color:#ffffff;'></td><td id='c14x8' style='background-color:#ffffff;'></td><td id='c14x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c15x0' style='background-color:#ffffff;'></td><td id='c15x1' style='background-color:#ffffff;'></td><td id='c15x2' style='background-color:#ffffff;'></td><td id='c15x3' style='background-color:#ffffff;'></td><td id='c15x4' style='background-color:#ffffff;'></td><td id='c15x5' style='background-color:#ffffff;'></td><td id='c15x6' style='background-color:#ffffff;'></td><td id='c15x7' style='background-color:#ffffff;'></td><td id='c15x8' style='background-color:#ffffff;'></td><td id='c15x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c16x0' style='background-color:#ffffff;'></td><td id='c16x1' style='background-color:#ffffff;'></td><td id='c16x2' style='background-color:#ffffff;'></td><td id='c16x3' style='background-color:#ffffff;'></td><td id='c16x4' style='background-color:#ffffff;'></td><td id='c16x5' style='background-color:#ffffff;'></td><td id='c16x6' style='background-color:#ffffff;'></td><td id='c16x7' style='background-color:#ffffff;'></td><td id='c16x8' style='background-color:#ffffff;'></td><td id='c16x9' style='background-color:#ffffff;'></td></tr>
+<tr><td id='c17x0' style='background-color:#ffffff;'></td><td id='c17x1' style='background-color:#ffffff;'></td><td id='c17x2' style='background-color:#ffffff;'></td><td id='c17x3' style='background-color:#ffffff;'></td><td id='c17x4' style='background-color:#ffffff;'></td><td id='c17x5' style='background-color:#ffffff;'></td><td id='c17x6' style='background-color:#ffffff;'></td><td id='c17x7' style='background-color:#ffffff;'></td><td id='c17x8' style='background-color:#ffffff;'></td><td id='c17x9' style='background-color:#ffffff;'></td></tr>
+
+    </table>
+
+    <span id="score" style="border: 1px solid #000000; padding: 5px; margin: 10px; position:relative; top: 20px;">Score: 0</span><p />
+    <div style="padding: 5px; margin: 10px; position:relative; top:35px; left:10px">
+      <table border='0' style="border-spacing:1; float: left; height:100px" width='100px' >
+        <tr><td id='n0x0'></td><td id='n0x1'></td><td id='n0x2'></td><td id='n0x3'></td></tr>
+        <tr><td id='n1x0'></td><td id='n1x1'></td><td id='n1x2'></td><td id='n1x3'></td></tr>
+        <tr><td id='n2x0'></td><td id='n2x1'></td><td id='n2x2'></td><td id='n2x3'></td></tr>
+        <tr><td id='n3x0'></td><td id='n3x1'></td><td id='n3x2'></td><td id='n3x3'></td></tr>
+      </table>
+    </div>
+  </div>
+  <div style="text-align:center"><a href="javascript:start()" id="start" style="padding: 20px; background-color:#252525; color:#FFFFFF; font-size: 30px; position:relative; bottom:300px; right:100px;">Play</a></div>
+</body>
+</html>

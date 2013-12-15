@@ -4,3 +4,6 @@
 [submodule "public/dump/Koch"]
 	path = public/dump/Koch
 	url = https://github.com/Rob-ot/Koch.git
+[submodule "public/parallax"]
+	path = public/parallax
+	url = https://github.com/Rob-ot/jQuery-jsrallax.git
