@@ -7,3 +7,6 @@
 [submodule "public/parallax"]
 	path = public/parallax
 	url = https://github.com/Rob-ot/jQuery-jsrallax.git
+[submodule "public/dump/moire-numbers"]
+	path = public/dump/moire-numbers
+	url = https://github.com/Rob-ot/moire-numbers.git
