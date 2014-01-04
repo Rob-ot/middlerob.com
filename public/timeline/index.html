@@ -44,16 +44,29 @@
     width: 100%;
   }
 
+  main {
+    margin: 20px auto;
+    width: 1000px;
+  }
 
   .event {
     background: white;
     border-radius: 6px;
     box-shadow: 2px 1px 4px #EBEBEB;
-    margin: 20px auto;
+    float: left;
+    margin: 10px 0;
+    margin-left: 20px;
     padding: 10px;
     position: relative;
     text-align: center;
+    width: 320px;
+  }
+  .event.significant {
+    margin-left: 0;
     width: 1000px;
+  }
+  .event.significant + .event, .event:first-of-type {
+    margin-left: 0;
   }
 
   .event .year {
@@ -70,6 +83,9 @@
   .event > a {
     display: inline-block;
     position: relative;
+
+    max-width: 100%;
+    overflow: hidden;
   }
   .event > a:hover {
     background: black;
@@ -113,123 +129,125 @@
     <div class="arrow"></div>
   </header>
 
-  <article class="event">
-    <h1>Moire Numbers</h1>
-    <span class="year">2013</span>
-    <a href="/dump/moire-numbers/" title="View Demo"><img src="img/moire-numbers.png"></a>
-    <div class="description">A demo of an idea I had to display numbers while scrolling. It uses fixed vertical lines to white out certain pixel columns of bg.png which is a 7 segment display number that allows each segment to be turned on and off by blanking out some vertical columns.</div>
-  </article>
+  <main>
+    <article class="event">
+      <h1>Moire Numbers</h1>
+      <span class="year">2013</span>
+      <a href="/dump/moire-numbers/" title="View Demo"><img src="img/moire-numbers.png"></a>
+      <div class="description">A demo of an idea I had to display numbers while scrolling. It uses fixed vertical lines to white out certain pixel columns of bg.png which is a 7 segment display number that allows each segment to be turned on and off by blanking out some vertical columns.</div>
+    </article>
 
-  <article class="event">
-    <h1>Koch Triangle</h1>
-    <span class="year">2013</span>
-    <a href="/dump/Koch/public/5.html" title="View Demo"><img src="img/koch.png"></a>
-    <div class="description">I really wanted to make a recursive fractal renderer so I made some Koch triangle demos. Try out these variations on the demo: <a href="/dump/Koch/public/1.html">demo 2</a> or <a href="/dump/Koch/public/3.html">demo 3 (drag your mouse)</a>.</div>
-  </article>
+    <article class="event">
+      <h1>Koch Triangle</h1>
+      <span class="year">2013</span>
+      <a href="/dump/Koch/public/5.html" title="View Demo"><img src="img/koch.png"></a>
+      <div class="description">I really wanted to make a recursive fractal renderer so I made some Koch triangle demos. Try out these variations on the demo: <a href="/dump/Koch/public/1.html">demo 2</a> or <a href="/dump/Koch/public/3.html">demo 3 (drag your mouse)</a>.</div>
+    </article>
 
-  <article class="event">
-    <h1>Cards</h1>
-    <span class="year">2012</span>
-    <a href="http://middlerob.com:4000/#52b1387061b4336676000002" title="View Demo"><img src="img/cards.png"></a>
-    <div class="description">This was my pet project for about a year. It started with the idea of presenting the player with an empty table and a pile of cards and allowing them to play whatever card game they want. Players would be responsible for enforcing rules since there would be no built in restrictions. I ended up building a responsive widget system that works across mobile and desktop. Open the demo on your phone and computer at the same time to see it an action. Read more about it <a href="https://github.com/Rob-ot/Cards/blob/master/README.md">here</a>.</div>
-  </article>
+    <article class="event significant">
+      <h1>Cards</h1>
+      <span class="year">2012</span>
+      <a href="http://middlerob.com:4000/#52b1387061b4336676000002" title="View Demo"><img src="img/cards.png"></a>
+      <div class="description">This was my pet project for about a year. It started with the idea of presenting the player with an empty table and a pile of cards and allowing them to play whatever card game they want. Players would be responsible for enforcing rules since there would be no built in restrictions. I ended up building a responsive widget system that works across mobile and desktop. Open the demo on your phone and computer at the same time to see it an action. Read more about it <a href="https://github.com/Rob-ot/Cards/blob/master/README.md">here</a>.</div>
+    </article>
 
-  <article class="event">
-    <h1>Mold</h1>
-    <span class="year">2012</span>
-    <a href="https://github.com/idottv/Mold" title="View on GitHub"><img src="img/mold.png"></a>
-    <div class="description">This JavaScript library I built at i.TV combines Knockout style data binding with Mustache syntax. It's great for use with Backbone model binding.</div>
-  </article>
+    <article class="event significant">
+      <h1>Mold</h1>
+      <span class="year">2012</span>
+      <a href="https://github.com/idottv/Mold" title="View on GitHub"><img src="img/mold.png"></a>
+      <div class="description">This JavaScript library I built at i.TV combines Knockout style data binding with Mustache syntax. It's great for use with Backbone model binding.</div>
+    </article>
 
-  <article class="event">
-    <h1>jQuery-jsrallax</h1>
-    <span class="year">2011</span>
-    <a href="/parallax/" title="View Demo"><img src="img/parallax.png"></a>
-    <div class="description">I really wanted to make a parallax library for JavaScript so I found a designer and we made the inside of a cell. Click through to the live demo and move your mouse around to see it in action.</div>
-  </article>
+    <article class="event">
+      <h1>jQuery-jsrallax</h1>
+      <span class="year">2011</span>
+      <a href="/parallax/" title="View Demo"><img src="img/parallax.png"></a>
+      <div class="description">I really wanted to make a parallax library for JavaScript so I found a designer and we made the inside of a cell. Click through to the live demo and move your mouse around to see it in action.</div>
+    </article>
 
-  <article class="event">
-    <h1>JS1k</h1>
-    <span class="year">2011</span>
-    <a href="http://js1k.com/2011-dysentery/demo/915" title="View Demo on js1k.com"><img src="img/js1k2011.png"></a>
-    <div class="description">I participated in JS1k 2011, my entry was a top down shooter. I didn't end up placing but I had a lot of fun making it and I learned a lot. Use WADS to move and click to shoot.</div>
-  </article>
+    <article class="event">
+      <h1>JS1k</h1>
+      <span class="year">2011</span>
+      <a href="http://js1k.com/2011-dysentery/demo/915" title="View Demo on js1k.com"><img src="img/js1k2011.png"></a>
+      <div class="description">I participated in JS1k 2011, my entry was a top down shooter. I didn't end up placing but I had a lot of fun making it and I learned a lot. Use WADS to move and click to shoot.</div>
+    </article>
 
-  <article class="event">
-    <h1>Huffington Post TV (previously AOL TV)</h1>
-    <span class="year">2011</span>
-    <a href="http://tvlistings.aol.com/listings/wa/capitol-hill/comcast-king-county-south/WA63873|X" title="View Seattle Listings"><img src="img/huffpostgrid.png"></a>
-    <div class="description">My first major project at i.TV was TV listings for AOL / Huffington Post. I was the main front-end engineer and I did most of the work on the grid. The grid was the first JavaScript driven TV listings grid that didn't require a full page refresh to load more listings. The site still sits in the first page of results of a Google search for tv listings.</div>
-  </article>
+    <article class="event significant">
+      <h1>Huffington Post TV (previously AOL TV)</h1>
+      <span class="year">2011</span>
+      <a href="http://tvlistings.aol.com/listings/wa/capitol-hill/comcast-king-county-south/WA63873|X" title="View Seattle Listings"><img src="img/huffpostgrid.png"></a>
+      <div class="description">My first major project at i.TV was TV listings for AOL / Huffington Post. I was the main front-end engineer and I did most of the work on the grid. The grid was the first JavaScript driven TV listings grid that didn't require a full page refresh to load more listings. The site still sits in the first page of results of a Google search for tv listings.</div>
+    </article>
 
-  <article class="event">
-    <h1>i.TV</h1>
-    <span class="year">2010</span>
-    <a href="http://i.tv" title="View i.TV Homepage"><img src="img/itv.png"></a>
-    <div class="description">I started working at i.TV in December of 2010. I learned a lot about Node.js, MongoDB, web app development and much more while working here.</div>
-  </article>
+    <article class="event">
+      <h1>i.TV</h1>
+      <span class="year">2010</span>
+      <a href="http://i.tv" title="View i.TV Homepage"><img src="img/itv.png"></a>
+      <div class="description">I started working at i.TV in December of 2010. I learned a lot about Node.js, MongoDB, web app development, and much more while working there.</div>
+    </article>
 
-  <article class="event">
-    <h1>BitE JS</h1>
-    <span class="year">2010</span>
-    <a href="http://middlerob.com/dump/BitE-JS/examples/index.html" title="View Demo"><img src="img/bite-flower.png"></a>
-    <div class="description">I was playing with making a pixel editor using canvas and ended up turning it into an animation editor. Pretty fun!</div>
-  </article>
+    <article class="event significant">
+      <h1>BitE JS</h1>
+      <span class="year">2010</span>
+      <a href="http://middlerob.com/dump/BitE-JS/examples/index.html" title="View Demo"><img src="img/bite-flower.png"></a>
+      <div class="description">I was playing with making a pixel editor using canvas and ended up turning it into an animation editor. Pretty fun!</div>
+    </article>
 
-  <article class="event">
-    <h1>YouTube Without Flash</h1>
-    <span class="year">2009</span>
-    <a href="http://userscripts.org/scripts/show/50771" title="View on userscripts.org"><img src="img/ywof.png"></a>
-    <div class="description">I took over an open source <a href="https://en.wikipedia.org/wiki/Greasemonkey">Greasemonkey</a> script that replaced the flash player on YouTube with an embeded player like the VLC browser plugin. YouTube has since required the session cookie to be sent with the video file request slowing this plugin development to a grinding halt.</div>
-  </article>
+    <article class="event">
+      <h1>YouTube Without Flash</h1>
+      <span class="year">2009</span>
+      <a href="http://userscripts.org/scripts/show/50771" title="View on userscripts.org"><img src="img/ywof.png"></a>
+      <div class="description">I took over an open source <a href="https://en.wikipedia.org/wiki/Greasemonkey">Greasemonkey</a> script that replaced the flash player on YouTube with an embeded player like the VLC browser plugin. YouTube has since required the session cookie to be sent with the video file request slowing this plugin development to a grinding halt.</div>
+    </article>
 
-  <article class="event">
-    <h1>My First webapp</h1>
-    <span class="year">2009</span>
-    <a href="/dump/game.html" title="View Game"><img src="img/game.png"></a>
-    <div class="description">The main language I was taught was Java and I only had a couple web development classes. The day we were taught JavaScript was a special one for me. I realized I could combine all the knowledge I had of making html and css websites with the programming knowledge I had been learning into a single webpage, host it on my home server, and make it accessible to the world with a single click. I was in love. I played with JavaScript a lot in my free time and I finally made this Tetris-like game.</div>
-  </article>
+    <article class="event significant">
+      <h1>My First webapp</h1>
+      <span class="year">2009</span>
+      <a href="/dump/game.html" title="View Game"><img src="img/game.png"></a>
+      <div class="description">The main language I was taught was Java and I only had a couple web development classes. The day we were taught JavaScript was a special one for me. I realized I could combine all the knowledge I had of making html and css websites with the programming knowledge I had been learning into a single webpage, host it on my home server, and make it accessible to the world with a single click. I was in love. I played with JavaScript a lot in my free time and I finally made this Tetris-like game.</div>
+    </article>
 
-  <article class="event">
-    <h1>College</h1>
-    <span class="year">2008</span>
-    <a href="https://www.google.com/maps/preview#!q=green+bay%2C+wi&data=!1m8!1m3!1d3!2d-88.106949!3d44.553228!2m2!1f98.24!2f91.64!4f75!2m9!1e1!2m4!1sBku-n2wNKwu0hBK8AlCJhw!2e0!9m1!6sSecurity+Boulevard!5m2!1sBku-n2wNKwu0hBK8AlCJhw!2e0!4m15!2m14!1m13!1s0x8802e2e809b380f3%3A0x6370045214dcf571!3m8!1m3!1d203519!2d-122.3420645!3d47.6130285!3m2!1i1920!2i908!4f13.1!4m2!3d44.519159!4d-88.019826&fid=5" title="View on Google Maps"><img src="img/college.png"></a>
-    <div class="description">Despite it not being the most reputable college, I attended ITT Tech. I had some amazing professors who taught me well. I was fortunate enough attend college without working at the same time so I had plenty of time to play with computers and programs at home where I learned a lot on top of what I was already learning at school.</div>
-  </article>
+    <article class="event">
+      <h1>College</h1>
+      <span class="year">2008</span>
+      <a href="https://www.google.com/maps/preview#!q=green+bay%2C+wi&data=!1m8!1m3!1d3!2d-88.106949!3d44.553228!2m2!1f98.24!2f91.64!4f75!2m9!1e1!2m4!1sBku-n2wNKwu0hBK8AlCJhw!2e0!9m1!6sSecurity+Boulevard!5m2!1sBku-n2wNKwu0hBK8AlCJhw!2e0!4m15!2m14!1m13!1s0x8802e2e809b380f3%3A0x6370045214dcf571!3m8!1m3!1d203519!2d-122.3420645!3d47.6130285!3m2!1i1920!2i908!4f13.1!4m2!3d44.519159!4d-88.019826&fid=5" title="View on Google Maps"><img src="img/college.png"></a>
+      <div class="description">Despite it not being the most reputable college, I attended ITT Tech. I had some amazing professors who taught me well. I was fortunate enough attend college without working at the same time so I had plenty of time to play with computers and programs at home where I learned a lot on top of what I was already learning at school.</div>
+    </article>
 
-  <article class="event">
-    <h1>FreeBASIC</h1>
-    <span class="year">2006</span>
-    <a href="http://www.freebasic.net/"  title="View FreeBASIC Homepage"><img src="img/freebasic.png"></a>
-    <div class="description">Sometime while I was in high school I wrote my first program in a language called FreeBASIC. After making my first loop I remember realizing how powerful computers were. My life was ever changed at this point, I started comparing everything I thought about to basic programming constructs. I was hooked. I transitioned to using Linux as my main operating system.</div>
-  </article>
+    <article class="event">
+      <h1>FreeBASIC</h1>
+      <span class="year">2006</span>
+      <a href="http://www.freebasic.net/" title="View FreeBASIC Homepage"><img src="img/freebasic.png"></a>
+      <div class="description">Sometime while I was in high school I wrote my first program in a language called FreeBASIC. After making my first loop I remember realizing how powerful computers were. My life was ever changed at this point, I started comparing everything I thought about to basic programming constructs. I was hooked. I transitioned to using Linux as my main operating system.</div>
+    </article>
 
-  <article class="event nolink">
-    <h1>First website</h1>
-    <span class="year">2005</span>
-    <img src="img/phantom.png">
-    <div class="description">The first website I built was for a web development competition for high school students. It's also the first website I ever developed without a book telling me what to make it look like. It's made from tables within tables within tables.</div>
-  </article>
+    <article class="event">
+      <h1>First website</h1>
+      <span class="year">2005</span>
+      <a href="img/phantom.png" title="View Larger Image"><img src="img/phantom_small.png"></a>
+      <div class="description">The first website I built was for a web development competition for high school students. It's also the first website I ever developed without a book telling me what to make it look like. It's made from tables within tables within tables.</div>
+    </article>
 
-  <article class="event">
-    <h1>Bonduel High School</h1>
-    <span class="year">2003</span>
-    <a href="https://www.google.com/maps/preview#!q=bonduel+high+school&data=!1m8!1m3!1d3!2d-88.450315!3d44.74178!2m2!1f228.66!2f93.28!4f75!2m12!1e1!2m7!1sT9fciXTDJUcNmXRrFbByaw!2e0!5sBonduel+High+School!6f352.98392!8s%2F%2Fgeo0.ggpht.com%2Fcbk%3Fcb_client%3Dmaps_sv.tactile%26output%3Dthumbnail%26thumb%3D2%26panoid%3DT9fciXTDJUcNmXRrFbByaw%26w%3D374%26h%3D75%26yaw%3D222%26pitch%3D0%26ll%3D44.741780%2C-88.450315!9m1!6sCounty+Highway+BE+%2F+State+Street!5m2!1sT9fciXTDJUcNmXRrFbByaw!2e0!4m15!2m14!1m13!1s0x88026b11f0ceac6d%3A0x5ed6b40666d9f9f0!3m8!1m3!1d203519!2d-122.3420645!3d47.6130285!3m2!1i1920!2i908!4f13.1!4m2!3d44.741423!4d-88.45078&fid=5" title="View on Google Maps"><img src="img/bhs.png"></a>
-    <div class="description">I took many computer classes in high school, pretty much all of them in fact. There were no programming classes but I took a couple web development classes where I learned how to make table based websites with Dreamweaver. Apart from computer classes my favorites were wood shop, metal working, and auto repair classes.</div>
-  </article>
+    <article class="event significant">
+      <h1>Bonduel High School</h1>
+      <span class="year">2003</span>
+      <a href="https://www.google.com/maps/preview#!q=bonduel+high+school&data=!1m8!1m3!1d3!2d-88.450315!3d44.74178!2m2!1f228.66!2f93.28!4f75!2m12!1e1!2m7!1sT9fciXTDJUcNmXRrFbByaw!2e0!5sBonduel+High+School!6f352.98392!8s%2F%2Fgeo0.ggpht.com%2Fcbk%3Fcb_client%3Dmaps_sv.tactile%26output%3Dthumbnail%26thumb%3D2%26panoid%3DT9fciXTDJUcNmXRrFbByaw%26w%3D374%26h%3D75%26yaw%3D222%26pitch%3D0%26ll%3D44.741780%2C-88.450315!9m1!6sCounty+Highway+BE+%2F+State+Street!5m2!1sT9fciXTDJUcNmXRrFbByaw!2e0!4m15!2m14!1m13!1s0x88026b11f0ceac6d%3A0x5ed6b40666d9f9f0!3m8!1m3!1d203519!2d-122.3420645!3d47.6130285!3m2!1i1920!2i908!4f13.1!4m2!3d44.741423!4d-88.45078&fid=5" title="View on Google Maps"><img src="img/bhs.png"></a>
+      <div class="description">I took many computer classes in high school, pretty much all of them in fact. There were no programming classes but I took a couple web development classes where I learned how to make table based websites with Dreamweaver. Apart from computer classes my favorites were wood shop, metal working, and auto repair classes.</div>
+    </article>
 
-  <article class="event">
-    <h1>Bonduel, WI</h1>
-    <span class="year">1996</span>
-    <a href="https://www.google.com/maps/preview?q=bonduel%2C+wi" title="View on Google Maps"><img src="img/bonduel.png"></a>
-    <div class="description">Just after first grade my family moved to the middle of nowhere, Bonduel, WI, Population 1,478. We lived in the town for a few years before moving to a farm in the country.</div>
-  </article>
+    <article class="event significant">
+      <h1>Bonduel, WI</h1>
+      <span class="year">1996</span>
+      <a href="https://www.google.com/maps/preview?q=bonduel%2C+wi" title="View on Google Maps"><img src="img/bonduel.png"></a>
+      <div class="description">Just after first grade my family moved to the middle of nowhere, Bonduel, WI, Population 1,478. We lived in the town for a few years before moving to a farm less than a mile away.</div>
+    </article>
 
-  <article class="event">
-    <h1>Hello World</h1>
-    <span class="year">1989</span>
-    <a href="https://www.google.com/maps/preview#!q=1726-1758+Shawano+Ave&data=!1m8!1m3!1d3!2d-88.066304!3d44.532202!2m2!1f14.18!2f100.04!4f75!2m9!1e1!2m4!1sNqcizL9vHbtVq1y9WeZxwQ!2e0!9m1!6sWisconsin+29!5m2!1sNqcizL9vHbtVq1y9WeZxwQ!2e0!4m15!2m14!1m13!1s0x8802fa76fddfb969%3A0x8dab1724ea453ff9!3m8!1m3!1d3!2d-88.066304!3d44.532202!3m2!1i1920!2i908!4f90!4m2!3d44.5324236!4d-88.0670599&fid=5" title="View on Google Maps"><img src="img/stmarys.png"></a>
-    <div class="description">I was born at St. Marys hospital in Green Bay, WI.</div>
-  </article>
+    <article class="event significant">
+      <h1>Hello World</h1>
+      <span class="year">1989</span>
+      <a href="https://www.google.com/maps/preview#!q=1726-1758+Shawano+Ave&data=!1m8!1m3!1d3!2d-88.066304!3d44.532202!2m2!1f14.18!2f100.04!4f75!2m9!1e1!2m4!1sNqcizL9vHbtVq1y9WeZxwQ!2e0!9m1!6sWisconsin+29!5m2!1sNqcizL9vHbtVq1y9WeZxwQ!2e0!4m15!2m14!1m13!1s0x8802fa76fddfb969%3A0x8dab1724ea453ff9!3m8!1m3!1d3!2d-88.066304!3d44.532202!3m2!1i1920!2i908!4f90!4m2!3d44.5324236!4d-88.0670599&fid=5" title="View on Google Maps"><img src="img/stmarys.png"></a>
+      <div class="description">I was born at St. Marys hospital in Green Bay, WI.</div>
+    </article>
+  </main>
 </body>
 </html>
