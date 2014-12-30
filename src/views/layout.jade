@@ -20,16 +20,6 @@ html
 
     block content
 
-    h3 All Tags
-    section.tagCloud
-      - var tagUsageCounts = tagList.map(function (tag) { return postsWithTag(tag).length })
-      - var maxTagUsage = Math.max.apply(Math, tagUsageCounts)
-      - var minTagUsage = Math.min.apply(Math, tagUsageCounts)
-      - each tag in tagList
-        - var tagUsagePercent = (postsWithTag(tag).length - minTagUsage) / (maxTagUsage - minTagUsage)
-        = ' '
-        a.tag(href='#{tagUrl(tag)}', style='font-size: #{(16 * tagUsagePercent) + 14}px')  #{tag}
-
     footer
       span Copyright &copy; 2013 Rob Middleton
       = ' '

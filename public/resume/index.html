@@ -14,27 +14,39 @@
     padding: 0;
   }
 
-  html, body {
+  html {
+    box-shadow: 0 4px 0 black inset, 0 5px 0 white inset, 0 6px 0 black inset;
     font-family: Calibri;
     font-size: 16px;
   }
+  @media print {
+    html {
+      box-shadow: none;
+      font-size: 12px;
+    }
+  }
 
   h1, h2, h3, h4, h5, h6 {
-    margin: 26px 0 2px 0;
+    margin: 34px 0 6px 0;
   }
 
   h1 {
-    font-size: 32px
+    font-size: 32px;
+    font-size: 2rem;
   }
   h2 {
-    font-size: 22px
+    font-size: 22px;
+    font-size: 1.375rem;
   }
   h3 {
     font-size: 20px;
+    font-size: 1.25rem;
     margin: 0;
   }
   h4 {
     margin-top: 20px;
+    font-size: 16px;
+    font-size: 1rem;
   }
 
   ol {
@@ -43,13 +55,16 @@
 
   li {
     margin-left: 16px;
+    margin-left: 1rem;
   }
 
 
   body {
     margin: 0 auto;
-    max-width: 800px;
+    padding: 0 10px;
+    max-width: 820px;
   }
+
 
   .social a {
     color: black;
@@ -66,9 +81,21 @@
     columns: 3;
     margin-bottom: 8px;
   }
+  @media (max-width: 800px) {
+    .short-skills {
+      -moz-columns: 1;
+      -webkit-columns: 1;
+      columns: 1;
+    }
+  }
 
   .history > article {
     margin: 14px 0 50px 0;
+    margin: 0.875rem 0 3.125rem 0;
+  }
+
+  .role {
+    page-break-inside: avoid;
   }
 
   </style>
@@ -83,47 +110,46 @@
     <p>Twitter: <a href="https://twitter.com/Rob__ot">twitter.com/Rob__ot</a></p>
   </section>
 
-  <!-- <section>
+  <section>
     <h2>Objective</h2>
-    <p>The microprocessor is the most amazing invention in history and it's only about 60 years old. We have only scratched the surface of what computers are capable of.</p>
-  </section> -->
+    <p>The microprocessor is the most amazing invention in history and it's only about 60 years old. We have only begun to understand what is possible with this new technology.</p>
+    <p>As we grow it's becoming apparent that one of the toughest problems in this space is human-computer interaction.</p>
+    <p>My goal is to empower people with computers.</p>
+  </section>
 
   <section class="skills">
     <h2>Skills</h2>
     <ul class="short-skills">
       <li>JavaScript / CoffeeScript</li>
       <li>Node.js</li>
-      <li>CSS3 (Stylus, LESS)</li>
-      <li>MongoDB</li>
-      <li>Git and GitHub</li>
-      <li>Linux (Ubuntu, Fedora, more)</li>
-      <li>Mobile Web Applications</li>
-      <li>Touch Interfaces</li>
-      <li>WPO</li>
-      <li>Analytics (Mixpanel, Google)</li>
+      <li>Semantic HTML5</li>
+      <li>CSS3 (SASS, Stylus, LESS)</li>
       <li>jQuery</li>
       <li>Backbone</li>
       <li>Angular</li>
+      <li>Mobile Web Applications</li>
+      <li>MongoDB</li>
+      <li>MySQL</li>
+      <li>Git and GitHub</li>
+      <li>Linux</li>
+      <li>Touch Interfaces</li>
+      <li>Software Architecture</li>
+      <li>WPO</li>
+      <li>User Analytics</li>
+      <li>User Testing</li>
       <li>Greasemonkey Scripts</li>
-      <li>Semantic HTML5</li>
       <li>Bootstrap</li>
       <li>Socket.io</li>
       <li>Express</li>
-      <li>Service Oriented Architecture</li>
+      <li>SOA</li>
       <li>JSON</li>
       <li>REST</li>
-      <li>RabbitMQ</li>
       <li>AWS</li>
-      <li>Rackspace</li>
-      <li>MySQL</li>
-      <li>FFmpeg</li>
-      <li>ImageMagick</li>
       <li>Java</li>
       <li>PHP</li>
     </ul>
     <ul class="long-skills">
-      <li>Live updating web apps via sockets, long polling, PubNub</li>
-      <li>Code Architecture including OOP, mixins, modularity</li>
+      <li>Highly interactive web apps with live updating via sockets, long polling, PubNub</li>
       <li>Various development styles and methods: Lean, Agile, Kanban, TDD, Pair Programming, Peer Code Reviews, working remotely</li>
     </ul>
   </section>
@@ -131,37 +157,56 @@
   <section class="history">
     <h2>History</h2>
     <article>
-      <div class="dates">Dec 2010 - Present</div>
+      <div class="dates">May 2013 - Present</div>
+      <h3>Hangtime - San Francisco (remote from Seattle)</h3>
+    </article>
+    <article>
+      <div class="dates">Dec 2010 - March 2014</div>
       <h3>i.TV - Provo UT</h3>
-      <h4>Lead frontend engineer - Nintendo TVii</h4>
-      <p>Set up and worked on the TVii front end app which was built on Backbone, RequireJS, and Mold templating.</p>
-      <p>I also did plenty of backend work including work on the SOA-based app and making a TV capture system that captures screenshots of live TV every second and uploads them to a CDN to be delivered to our apps in real time.</p>
-      <h4>Lead Frontend Engineer - Entertainment weekly ViEWer</h4>
-      <p>Created an MVC system (which turned out to be a lot like Backbone) that we built ViEWer on. Some hard problems we worked on were: managing a large live updating message feed, getting live updates using polling, and working within an iframe in the clients webpage.</p>
-      <h4>Frontend engineer - tvtag prototype</h4>
-      <p>An unreleased webapp tvtag prototype that had a layout similar to Pinterest.</p>
-      <h4>Frontend engineer - AOLTV (now Huffington Post</h4>
-      <p>Helped build the new AOL TV experience. I did a lot of the work on the Google-Maps-inspired draggable TV grid - the first of its kind.</p>
-      <h4>Backend engineer - i.TV (iOS app)</h4>
-      <p>Helped build the Node.js based backend for our TV grid app. Including importing every show on every channel for every TV provider in the US.</p>
+      <div class="role">
+        <h4>Lead frontend engineer - Nintendo TVii</h4>
+        <p>Set up and worked on the TVii front end app which was built on Backbone, RequireJS, and Mold templating.</p>
+        <p>I also did plenty of backend work including work on the SOA/Node.js-based app and making a TV capture system that captures screenshots of live TV every second and uploads them to a CDN to be delivered to our apps in real time.</p>
+      </div>
+      <div class="role">
+        <h4>Lead Frontend Engineer - Entertainment Weekly ViEWer</h4>
+        <p>Created an MVC system (which turned out to be a lot like Backbone) that we built ViEWer on. Some hard problems we worked on were: managing a large live updating message feed, getting live updates using polling, and working within an iframe in the clients webpage.</p>
+      <div class="role">
+        <h4>Frontend engineer - tvtag prototype</h4>
+        <p>An unreleased webapp tvtag prototype that had a layout similar to Pinterest.</p>
+      </div>
+      <div class="role">
+        <h4>Frontend engineer - AOLTV (now Huffington Post)</h4>
+        <p>Helped build the new AOL TV experience including the Google-Maps-inspired draggable TV grid - the first of its kind.</p>
+      </div>
+      <div class="role">
+        <h4>Backend engineer - i.TV (iOS app)</h4>
+        <p>Helped build the Node.js/MongoDB backend for our TV grid app. Including importing every show on every channel for every TV provider in the US.</p>
+      </div>
     </article>
     <article>
       <div class="dates">Jan 2010 - Jul 2010</div>
       <h3>Lloyd Fitness and Performance - Richfield, WI</h3>
-      <h4>Web Application Developer</h4>
-      <p>We were working on a web-based CRM for fitness clubs that would allow them to manage menbers, biling, personal trainer schedules, and more.</p>
-      <h4>Mobile Web Application Developer</h4>
-      <p>We were creating a mobile web app specifically for personal trainers to keep track of their schedule, client fitness logging, and billing.</p>
+      <div class="role">
+        <h4>Web Application Developer</h4>
+        <p>We were working on a web-based CRM for fitness clubs that would allow them to manage members, billing, personal trainer schedules, and more.</p>
+      </div>
+      <div class="role">
+        <h4>Mobile Web Application Developer</h4>
+        <p>We were creating a mobile web app specifically for personal trainers to keep track of their schedule, client fitness logging, and billing.</p>
+      </div>
     </article>
     <article>
       <div class="dates">2004 - Jan 2010</div>
       <h3>MLR Investments - Bonduel, WI</h3>
-      <h4>Maintenance contractor</h4>
-      <p>General housing and mobile home repairs, interior and exterior.</p>
-      <p>This is my Parents' business.</p>
+      <div class="role">
+        <h4>Maintenance contractor</h4>
+        <p>Housing and mobile home repairs and maintenance, interior and exterior.</p>
+        <p>This was my Parents' business.</p>
+      </div>
     </article>
     <article>
-      <div class="dates">September 2007 - September 2009</div>
+      <div class="dates">Sept 2007 - Sept 2009</div>
       <h3>ITT Technical Institute - Green Bay, WI</h3>
       <p>Associates degree in Software Applications and Programming</p>
       <p>Graduated September '09 - GPA 3.77</p>
