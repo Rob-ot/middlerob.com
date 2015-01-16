@@ -35,8 +35,8 @@
     font-size: 2rem;
   }
   h2 {
-    font-size: 22px;
-    font-size: 1.375rem;
+    font-size: 24px;
+    font-size: 1.5rem;
   }
   h3 {
     font-size: 20px;
@@ -56,6 +56,32 @@
   li {
     margin-left: 16px;
     margin-left: 1rem;
+  }
+
+  a {
+    color: inherit;
+  }
+  h3 a {
+    text-decoration: none;
+  }
+  @media print {
+    a {
+      text-decoration: none;
+    }
+
+    a:after {
+      content: " - http://middlerob.com/resume/" attr(href);
+    }
+
+    a[href^="http:"]:after,
+    a[href^="https:"]:after {
+      content: " - " attr(href);
+    }
+
+    .social a[href]:after,
+    h3 a[href]:after {
+      content: "";
+    }
   }
 
 
@@ -89,12 +115,11 @@
     }
   }
 
-  .history > article {
+  .history > article,
+  .education > article,
+  .projects > article {
     margin: 14px 0 50px 0;
     margin: 0.875rem 0 3.125rem 0;
-  }
-
-  .role {
     page-break-inside: avoid;
   }
 
@@ -105,16 +130,15 @@
 
   <section class="social">
     <p>Website: <a href="http://middlerob.com">middlerob.com</a></p>
-    <p>Portfolio: <a href="http://middlerob.com/timeline">middlerob.com/timeline</a></p>
-    <p>Github: <a href="https://github.com/Rob-ot">github.com/Rob-ot</a></p>
+    <p>Resume: <a href="http://middlerob.com/resume">middlerob.com/resume</a></p>
+    <p>GitHub: <a href="https://github.com/Rob-ot">github.com/Rob-ot</a></p>
     <p>Twitter: <a href="https://twitter.com/Rob__ot">twitter.com/Rob__ot</a></p>
   </section>
 
   <section>
     <h2>Objective</h2>
-    <p>The microprocessor is the most amazing invention in history and it's only about 60 years old. We have only begun to understand what is possible with this new technology.</p>
-    <p>As we grow it's becoming apparent that one of the toughest problems in this space is human-computer interaction.</p>
-    <p>My goal is to empower people with computers.</p>
+    <p>Microprocessors are incredible. They allow us to do so many amazing things and they've been around for a relatively short amount of time.</p>
+    <p>My objective is to use this amazing new technology to do things that were previously thought impossible and to improve peoples lives.</p>
   </section>
 
   <section class="skills">
@@ -124,9 +148,9 @@
       <li>Node.js</li>
       <li>Semantic HTML5</li>
       <li>CSS3 (SASS, Stylus, LESS)</li>
-      <li>jQuery</li>
       <li>Backbone</li>
       <li>Angular</li>
+      <li>jQuery</li>
       <li>Mobile Web Applications</li>
       <li>MongoDB</li>
       <li>MySQL</li>
@@ -157,31 +181,41 @@
   <section class="history">
     <h2>History</h2>
     <article>
-      <div class="dates">May 2013 - Present</div>
+      <div class="dates">May 2014 - Jan 2015</div>
       <h3>Hangtime - San Francisco (remote from Seattle)</h3>
+      <div class="role">
+        <h4>Frontend engineer - Hangtime Web App</h4>
+        <p>I was initially hired as a contractor to implement a full app reskin. Once that was finished I continued to maintain the app and part-time.</p>
+        <p>The app was built using Backbone, SASS, and Jade and included the ability to render HTML on the server or client.</p>
+        <p><a class="external" href="http://www.hangtime.com/home">Live App</a></p>
+      </div>
     </article>
     <article>
       <div class="dates">Dec 2010 - March 2014</div>
-      <h3>i.TV - Provo UT</h3>
+      <h3>i.TV - Provo UT, Redmond, WA</h3>
       <div class="role">
         <h4>Lead frontend engineer - Nintendo TVii</h4>
-        <p>Set up and worked on the TVii front end app which was built on Backbone, RequireJS, and Mold templating.</p>
-        <p>I also did plenty of backend work including work on the SOA/Node.js-based app and making a TV capture system that captures screenshots of live TV every second and uploads them to a CDN to be delivered to our apps in real time.</p>
+        <p>Set up and built out the TVii front end app which was built on Backbone, RequireJS, and Mold templating.</p>
+        <p>I also helped on the backend including work on the SOA/Node.js-based app and making a TV capture system that captures screenshots of live TV every second and uploads them to a CDN to be delivered to our apps in real time.</p>
+        <p><a class="external" href="http://www.nintendo.com/wiiu/built-in-software#/tvii">Info Page</a></p>
       </div>
       <div class="role">
         <h4>Lead Frontend Engineer - Entertainment Weekly ViEWer</h4>
-        <p>Created an MVC system (which turned out to be a lot like Backbone) that we built ViEWer on. Some hard problems we worked on were: managing a large live updating message feed, getting live updates using polling, and working within an iframe in the clients webpage.</p>
+        <p>Created an MVC system (which turned out to be a lot like Backbone) that we built viEWer on. Some hard problems we worked on were: managing a large live updating message feed, getting live updates using polling, and working within an iframe within EWs webpage.</p>
+        <p><a class="local" href="viewer.jpeg">Screenshot</a></p>
       <div class="role">
         <h4>Frontend engineer - tvtag prototype</h4>
         <p>An unreleased webapp tvtag prototype that had a layout similar to Pinterest.</p>
       </div>
       <div class="role">
         <h4>Frontend engineer - AOLTV (now Huffington Post)</h4>
-        <p>Helped build the new AOL TV experience including the Google-Maps-inspired draggable TV grid - the first of its kind.</p>
+        <p>Helped build the new AOL TV experience including the Google-Maps-inspired interactive draggable TV grid - the first of its kind.</p>
+        <p><a class="external" href="http://tvlistings.aol.com/">Live Website</a></p>
       </div>
       <div class="role">
         <h4>Backend engineer - i.TV (iOS app)</h4>
         <p>Helped build the Node.js/MongoDB backend for our TV grid app. Including importing every show on every channel for every TV provider in the US.</p>
+        <p><a class="external" href="https://itunes.apple.com/us/app/i.-tv/id290338603">App Store</a></p>
       </div>
     </article>
     <article>
@@ -205,11 +239,44 @@
         <p>This was my Parents' business.</p>
       </div>
     </article>
+  </section>
+
+  <section class="education">
+    <h2>Formal Education</h2>
     <article>
       <div class="dates">Sept 2007 - Sept 2009</div>
       <h3>ITT Technical Institute - Green Bay, WI</h3>
       <p>Associates degree in Software Applications and Programming</p>
       <p>Graduated September '09 - GPA 3.77</p>
+    </article>
+  </section>
+
+  <section class="projects">
+    <h2>Major Side Projects</h2>
+    <article>
+      <div class="dates">2013</div>
+      <h3><a href="http://playingcards.io">playingcards.io</a></h3>
+      <p>This is a card game with no rules. It allows players to drag, flip, and hold cards on a multi-user webpage. All actions are updated in realtime with Socket.io and persisted in MongoDB.</p>
+      <p>I originally had this idea while visiting Las Vegas. After experimenting with different directions like turning it into a place to "hang out" with your friends, chat, and share music, I finally trimmed it back to what it is now.</p>
+      <p><a href="http://playingcards.io">Live Website</a></p>
+    </article>
+    <article>
+      <div class="dates">2012</div>
+      <h3>Cinch</h3>
+      <p>Cinch was the project I worked on during Startup Weekend SLC. Our team leader had the idea of using a URL-shortener-type of service that directed mobile users to a simplified "cinched" version of the page. This "cinched" page would have a summary of page information pulled from <a href="http://embed.ly">Embedly</a> and controls to email yourself the page URL so you could make the purchase from your computer.</p>
+      <p>So that's exactly what we did. We had an amazing group of people who pulled together to make the entire app and landing page in 48 hours.</p>
+      <p>
+        <a href="cinch.png">Screenshot</a>
+        <a href="http://www.zagg.com/community/blog/swslc-presents-cinch-makes-life-a-bit-more-mobile-friendly/">Article about Cinch</a></p>
+    </article>
+    <article>
+      <div class="dates">2010</div>
+      <h3>BitE</h3>
+      <p>This was a project that started as a simple pixel editor and turned into a cool bitmap animation editor.</p>
+      <p>
+        <a href="http://middlerob.com/dump/BitE-JS/examples/">Live Demo</a>
+        <a href="https://github.com/Rob-ot/BitE-JS">GitHub</a>
+      </p>
     </article>
   </section>
 </body>
