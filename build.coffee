@@ -3,6 +3,7 @@ Metalsmith = require 'metalsmith'
 jade = require 'metalsmith-jade'
 stylus = require 'metalsmith-stylus'
 asset = require 'metalsmith-static'
+npm = require 'npm'
 
 metalsmith = Metalsmith __dirname
 
@@ -18,4 +19,15 @@ metalsmith.use asset
 
 metalsmith.build (err) ->
   console.error err if err
-  console.log 'done'
+  console.log 'metalsmith done'
+
+
+  npm.load prefix: __dirname + '/public/facebook-photo-collage', (err) ->
+    return console.error err if err
+
+    npm.commands.install (err) ->
+      return console.error err if err
+
+      npm.commands['run-script'] ['build'], (err) ->
+        return console.error err if err
+        console.log 'fb photo viewer done'
