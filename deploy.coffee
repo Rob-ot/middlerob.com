@@ -4,7 +4,7 @@ readdirp = require 'readdirp'
 creds = require './creds'
 
 files = readdirp
-  root: __dirname + '/build'
+  root: __dirname + '/public'
   directoryFilter: ['!cache', '!node_modules']
 
 uploader = s3sync(creds).on 'data', (file) ->
