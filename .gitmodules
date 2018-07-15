@@ -10,6 +10,3 @@
 [submodule "public/dump/moire-numbers"]
 	path = public/dump/moire-numbers
 	url = https://github.com/Rob-ot/moire-numbers.git
-[submodule "public/facebook-photo-collage"]
-	path = public/facebook-photo-collage
-	url = git@github.com:Rob-ot/Facebook-Photo-Collage.git
