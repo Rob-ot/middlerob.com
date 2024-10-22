@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "allowJs": true,
+    "strict": true,
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+}

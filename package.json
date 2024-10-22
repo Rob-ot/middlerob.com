@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "submodule": "git submodule init && git submodule update && git submodule foreach git pull origin master",
-    "deploy": "node deploy.js"
+    "deploy": "ts-node deploy.ts"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,19 @@
   },
   "license": "Varied",
   "dependencies": {
-    "readdirp": "^2.1.0",
-    "s3-sync": "^1.0.1"
+    "@aws-sdk/client-s3": "^3.676.0",
+    "mime-types": "^2.1.35",
+    "readdirp": "^4.0.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
+    "@types/mime-types": "^2.1.4",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2"
   }
 }
