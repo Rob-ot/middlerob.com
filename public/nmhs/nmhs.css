@@ -1,0 +1,48 @@
+
+
+.Calc {
+  text-align: left;
+  white-space: normal;
+}
+
+.Calc section {
+  margin-bottom: 16px;
+}
+
+.Calc select {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding: 6px 12px;
+}
+
+.Calc__product {
+  max-width: 100%;
+}
+
+.Calc__sizes {
+  display: flex;
+  gap: 16px;
+}
+
+.Calc__note {
+  font-size: 14px;
+  color: #666;
+}
+
+.Calc__sub-result-label,
+.Calc__vented-required-label {
+  display: inline-block;
+  text-align: right;
+  width: 190px;
+}
+
+.Calc__sub-result {
+  font-size: 18px;
+}
+
+.Calc__vented-result {
+  font-size: 28px;
+}
+
