@@ -174,8 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
     },
   ]
 
-  const template = `
-    <div class="Calc">
+  // avoid whitespace before/after Calc, the parent el is whitespace:preserve
+  const template = `<div class="Calc">
       <section class="Calc__sizes">
         <div class="Calc__size">
           <div class="Calc__label">Home Width</div>
@@ -232,8 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <p>This product does not provide suitable ventilation for this home setup based on HUD requirements.</p>
         <p>Choose a different product or consider adding a vapor barrier to your home.</p>
       </div>
-    </div>
-  `
+    </div>`
 
   function initSkirtingCalculator() {
     const parentElCandidates = document.querySelectorAll('.ins-tile__description')
